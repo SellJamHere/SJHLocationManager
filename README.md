@@ -6,8 +6,6 @@
 
 ## Usage
 
-To run the example project, clone the repo, and run `pod install` from the Example directory first.
-
 ## Requirements
 
 ## Installation
@@ -19,7 +17,7 @@ it, simply add the following line to your Podfile:
 
 ## Author
 
-James Heller, jaheller5@cox.net
+James Heller, jaheller5@gmail.com
 
 ## License
 
