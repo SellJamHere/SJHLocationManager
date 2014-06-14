@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		82661EF4194BB9A80020C876 /* SJHLocationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 82661EF3194BB9A80020C876 /* SJHLocationHandler.m */; };
-		82661EF9194BEC250020C876 /* SJHLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 82661EF6194BEC250020C876 /* SJHLocationManager.m */; };
-		82661EFA194BEC250020C876 /* SJHRegionWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 82661EF8194BEC250020C876 /* SJHRegionWrapper.m */; };
+		82661EFF194BFAAC0020C876 /* SJHLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 82661EFC194BFAAC0020C876 /* SJHLocationManager.m */; };
+		82661F00194BFAAC0020C876 /* SJHRegionWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 82661EFE194BFAAC0020C876 /* SJHRegionWrapper.m */; };
 		82F196651943E4E10048BF05 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82F196641943E4E10048BF05 /* Foundation.framework */; };
 		82F196671943E4E10048BF05 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82F196661943E4E10048BF05 /* CoreGraphics.framework */; };
 		82F196691943E4E10048BF05 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82F196681943E4E10048BF05 /* UIKit.framework */; };
@@ -38,10 +38,10 @@
 /* Begin PBXFileReference section */
 		82661EF2194BB9A80020C876 /* SJHLocationHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJHLocationHandler.h; sourceTree = "<group>"; };
 		82661EF3194BB9A80020C876 /* SJHLocationHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJHLocationHandler.m; sourceTree = "<group>"; };
-		82661EF5194BEC250020C876 /* SJHLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SJHLocationManager.h; path = "../../SJHLocationManager src/SJHLocationManager.h"; sourceTree = "<group>"; };
-		82661EF6194BEC250020C876 /* SJHLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SJHLocationManager.m; path = "../../SJHLocationManager src/SJHLocationManager.m"; sourceTree = "<group>"; };
-		82661EF7194BEC250020C876 /* SJHRegionWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SJHRegionWrapper.h; path = "../../SJHLocationManager src/SJHRegionWrapper.h"; sourceTree = "<group>"; };
-		82661EF8194BEC250020C876 /* SJHRegionWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SJHRegionWrapper.m; path = "../../SJHLocationManager src/SJHRegionWrapper.m"; sourceTree = "<group>"; };
+		82661EFB194BFAAC0020C876 /* SJHLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SJHLocationManager.h; path = ../../SJHLocationManager/SJHLocationManager.h; sourceTree = "<group>"; };
+		82661EFC194BFAAC0020C876 /* SJHLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SJHLocationManager.m; path = ../../SJHLocationManager/SJHLocationManager.m; sourceTree = "<group>"; };
+		82661EFD194BFAAC0020C876 /* SJHRegionWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SJHRegionWrapper.h; path = ../../SJHLocationManager/SJHRegionWrapper.h; sourceTree = "<group>"; };
+		82661EFE194BFAAC0020C876 /* SJHRegionWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SJHRegionWrapper.m; path = ../../SJHLocationManager/SJHRegionWrapper.m; sourceTree = "<group>"; };
 		82F1964B1943DFC10048BF05 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		82F1965D1943E39C0048BF05 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		82F196631943E4E10048BF05 /* SJHLocationManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SJHLocationManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -91,10 +91,10 @@
 		82661EF1194BB87D0020C876 /* LocationLib */ = {
 			isa = PBXGroup;
 			children = (
-				82661EF5194BEC250020C876 /* SJHLocationManager.h */,
-				82661EF6194BEC250020C876 /* SJHLocationManager.m */,
-				82661EF7194BEC250020C876 /* SJHRegionWrapper.h */,
-				82661EF8194BEC250020C876 /* SJHRegionWrapper.m */,
+				82661EFB194BFAAC0020C876 /* SJHLocationManager.h */,
+				82661EFC194BFAAC0020C876 /* SJHLocationManager.m */,
+				82661EFD194BFAAC0020C876 /* SJHRegionWrapper.h */,
+				82661EFE194BFAAC0020C876 /* SJHRegionWrapper.m */,
 			);
 			name = LocationLib;
 			sourceTree = "<group>";
@@ -270,8 +270,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				82661EF9194BEC250020C876 /* SJHLocationManager.m in Sources */,
-				82661EFA194BEC250020C876 /* SJHRegionWrapper.m in Sources */,
+				82661EFF194BFAAC0020C876 /* SJHLocationManager.m in Sources */,
+				82661F00194BFAAC0020C876 /* SJHRegionWrapper.m in Sources */,
 				82F196751943E4E10048BF05 /* SJHAppDelegate.m in Sources */,
 				82F196711943E4E10048BF05 /* main.m in Sources */,
 				82661EF4194BB9A80020C876 /* SJHLocationHandler.m in Sources */,
@@ -403,7 +403,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "SJHLocationManager/SJHLocationManager-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -424,7 +424,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SJHLocationManager/SJHLocationManager-Prefix.pch";
 				INFOPLIST_FILE = "SJHLocationManager/SJHLocationManager-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
