@@ -1,0 +1,514 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		82661EF4194BB9A80020C876 /* SJHLocationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 82661EF3194BB9A80020C876 /* SJHLocationHandler.m */; };
+		82661EF9194BEC250020C876 /* SJHLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 82661EF6194BEC250020C876 /* SJHLocationManager.m */; };
+		82661EFA194BEC250020C876 /* SJHRegionWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 82661EF8194BEC250020C876 /* SJHRegionWrapper.m */; };
+		82F196651943E4E10048BF05 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82F196641943E4E10048BF05 /* Foundation.framework */; };
+		82F196671943E4E10048BF05 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82F196661943E4E10048BF05 /* CoreGraphics.framework */; };
+		82F196691943E4E10048BF05 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82F196681943E4E10048BF05 /* UIKit.framework */; };
+		82F1966F1943E4E10048BF05 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 82F1966D1943E4E10048BF05 /* InfoPlist.strings */; };
+		82F196711943E4E10048BF05 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 82F196701943E4E10048BF05 /* main.m */; };
+		82F196751943E4E10048BF05 /* SJHAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 82F196741943E4E10048BF05 /* SJHAppDelegate.m */; };
+		82F196771943E4E10048BF05 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 82F196761943E4E10048BF05 /* Images.xcassets */; };
+		82F1967E1943E4E10048BF05 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82F1967D1943E4E10048BF05 /* XCTest.framework */; };
+		82F1967F1943E4E20048BF05 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82F196641943E4E10048BF05 /* Foundation.framework */; };
+		82F196801943E4E20048BF05 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82F196681943E4E10048BF05 /* UIKit.framework */; };
+		82F196881943E4E20048BF05 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 82F196861943E4E20048BF05 /* InfoPlist.strings */; };
+		82F1968A1943E4E20048BF05 /* SJHLocationManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 82F196891943E4E20048BF05 /* SJHLocationManagerTests.m */; };
+		82F196921943E5020048BF05 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82F196911943E5020048BF05 /* CoreLocation.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		82F196811943E4E20048BF05 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 82F196401943DFC10048BF05 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 82F196621943E4E10048BF05;
+			remoteInfo = SJHLocationManager;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		82661EF2194BB9A80020C876 /* SJHLocationHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJHLocationHandler.h; sourceTree = "<group>"; };
+		82661EF3194BB9A80020C876 /* SJHLocationHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJHLocationHandler.m; sourceTree = "<group>"; };
+		82661EF5194BEC250020C876 /* SJHLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SJHLocationManager.h; path = "../../SJHLocationManager src/SJHLocationManager.h"; sourceTree = "<group>"; };
+		82661EF6194BEC250020C876 /* SJHLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SJHLocationManager.m; path = "../../SJHLocationManager src/SJHLocationManager.m"; sourceTree = "<group>"; };
+		82661EF7194BEC250020C876 /* SJHRegionWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SJHRegionWrapper.h; path = "../../SJHLocationManager src/SJHRegionWrapper.h"; sourceTree = "<group>"; };
+		82661EF8194BEC250020C876 /* SJHRegionWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SJHRegionWrapper.m; path = "../../SJHLocationManager src/SJHRegionWrapper.m"; sourceTree = "<group>"; };
+		82F1964B1943DFC10048BF05 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		82F1965D1943E39C0048BF05 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		82F196631943E4E10048BF05 /* SJHLocationManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SJHLocationManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		82F196641943E4E10048BF05 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		82F196661943E4E10048BF05 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		82F196681943E4E10048BF05 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		82F1966C1943E4E10048BF05 /* SJHLocationManager-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SJHLocationManager-Info.plist"; sourceTree = "<group>"; };
+		82F1966E1943E4E10048BF05 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		82F196701943E4E10048BF05 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		82F196721943E4E10048BF05 /* SJHLocationManager-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SJHLocationManager-Prefix.pch"; sourceTree = "<group>"; };
+		82F196731943E4E10048BF05 /* SJHAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SJHAppDelegate.h; sourceTree = "<group>"; };
+		82F196741943E4E10048BF05 /* SJHAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SJHAppDelegate.m; sourceTree = "<group>"; };
+		82F196761943E4E10048BF05 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Images.xcassets; sourceTree = "<group>"; };
+		82F1967C1943E4E10048BF05 /* SJHLocationManagerTests */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = file; name = SJHLocationManagerTests; path = SJHLocationManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		82F1967D1943E4E10048BF05 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		82F196851943E4E20048BF05 /* SJHLocationManagerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SJHLocationManagerTests-Info.plist"; sourceTree = "<group>"; };
+		82F196871943E4E20048BF05 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		82F196891943E4E20048BF05 /* SJHLocationManagerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SJHLocationManagerTests.m; sourceTree = "<group>"; };
+		82F196911943E5020048BF05 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/CoreLocation.framework; sourceTree = DEVELOPER_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		82F196601943E4E10048BF05 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				82F196921943E5020048BF05 /* CoreLocation.framework in Frameworks */,
+				82F196671943E4E10048BF05 /* CoreGraphics.framework in Frameworks */,
+				82F196691943E4E10048BF05 /* UIKit.framework in Frameworks */,
+				82F196651943E4E10048BF05 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		82F196791943E4E10048BF05 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				82F1967E1943E4E10048BF05 /* XCTest.framework in Frameworks */,
+				82F196801943E4E20048BF05 /* UIKit.framework in Frameworks */,
+				82F1967F1943E4E20048BF05 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		82661EF1194BB87D0020C876 /* LocationLib */ = {
+			isa = PBXGroup;
+			children = (
+				82661EF5194BEC250020C876 /* SJHLocationManager.h */,
+				82661EF6194BEC250020C876 /* SJHLocationManager.m */,
+				82661EF7194BEC250020C876 /* SJHRegionWrapper.h */,
+				82661EF8194BEC250020C876 /* SJHRegionWrapper.m */,
+			);
+			name = LocationLib;
+			sourceTree = "<group>";
+		};
+		82F1963F1943DFC10048BF05 = {
+			isa = PBXGroup;
+			children = (
+				82F1966A1943E4E10048BF05 /* SJHLocationManager */,
+				82F196831943E4E20048BF05 /* SJHLocationManagerTests */,
+				82F1964A1943DFC10048BF05 /* Frameworks */,
+				82F196491943DFC10048BF05 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		82F196491943DFC10048BF05 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				82F196631943E4E10048BF05 /* SJHLocationManager.app */,
+				82F1967C1943E4E10048BF05 /* SJHLocationManagerTests */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		82F1964A1943DFC10048BF05 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				82F196911943E5020048BF05 /* CoreLocation.framework */,
+				82F1965D1943E39C0048BF05 /* CoreLocation.framework */,
+				82F1964B1943DFC10048BF05 /* CoreFoundation.framework */,
+				82F196641943E4E10048BF05 /* Foundation.framework */,
+				82F196661943E4E10048BF05 /* CoreGraphics.framework */,
+				82F196681943E4E10048BF05 /* UIKit.framework */,
+				82F1967D1943E4E10048BF05 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		82F1966A1943E4E10048BF05 /* SJHLocationManager */ = {
+			isa = PBXGroup;
+			children = (
+				82661EF1194BB87D0020C876 /* LocationLib */,
+				82661EF2194BB9A80020C876 /* SJHLocationHandler.h */,
+				82661EF3194BB9A80020C876 /* SJHLocationHandler.m */,
+				82F196731943E4E10048BF05 /* SJHAppDelegate.h */,
+				82F196741943E4E10048BF05 /* SJHAppDelegate.m */,
+				82F196761943E4E10048BF05 /* Images.xcassets */,
+				82F1966B1943E4E10048BF05 /* Supporting Files */,
+			);
+			path = SJHLocationManager;
+			sourceTree = "<group>";
+		};
+		82F1966B1943E4E10048BF05 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				82F1966C1943E4E10048BF05 /* SJHLocationManager-Info.plist */,
+				82F1966D1943E4E10048BF05 /* InfoPlist.strings */,
+				82F196701943E4E10048BF05 /* main.m */,
+				82F196721943E4E10048BF05 /* SJHLocationManager-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		82F196831943E4E20048BF05 /* SJHLocationManagerTests */ = {
+			isa = PBXGroup;
+			children = (
+				82F196891943E4E20048BF05 /* SJHLocationManagerTests.m */,
+				82F196841943E4E20048BF05 /* Supporting Files */,
+			);
+			path = SJHLocationManagerTests;
+			sourceTree = "<group>";
+		};
+		82F196841943E4E20048BF05 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				82F196851943E4E20048BF05 /* SJHLocationManagerTests-Info.plist */,
+				82F196861943E4E20048BF05 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		82F196621943E4E10048BF05 /* SJHLocationManager */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 82F1968B1943E4E20048BF05 /* Build configuration list for PBXNativeTarget "SJHLocationManager" */;
+			buildPhases = (
+				82F1965F1943E4E10048BF05 /* Sources */,
+				82F196601943E4E10048BF05 /* Frameworks */,
+				82F196611943E4E10048BF05 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SJHLocationManager;
+			productName = SJHLocationManager;
+			productReference = 82F196631943E4E10048BF05 /* SJHLocationManager.app */;
+			productType = "com.apple.product-type.application";
+		};
+		82F1967B1943E4E10048BF05 /* SJHLocationManagerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 82F1968E1943E4E20048BF05 /* Build configuration list for PBXNativeTarget "SJHLocationManagerTests" */;
+			buildPhases = (
+				82F196781943E4E10048BF05 /* Sources */,
+				82F196791943E4E10048BF05 /* Frameworks */,
+				82F1967A1943E4E10048BF05 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				82F196821943E4E20048BF05 /* PBXTargetDependency */,
+			);
+			name = SJHLocationManagerTests;
+			productName = SJHLocationManagerTests;
+			productReference = 82F1967C1943E4E10048BF05 /* SJHLocationManagerTests */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		82F196401943DFC10048BF05 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = SellJamHere;
+				TargetAttributes = {
+					82F1967B1943E4E10048BF05 = {
+						TestTargetID = 82F196621943E4E10048BF05;
+					};
+				};
+			};
+			buildConfigurationList = 82F196431943DFC10048BF05 /* Build configuration list for PBXProject "SJHLocationManager" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 82F1963F1943DFC10048BF05;
+			productRefGroup = 82F196491943DFC10048BF05 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				82F196621943E4E10048BF05 /* SJHLocationManager */,
+				82F1967B1943E4E10048BF05 /* SJHLocationManagerTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		82F196611943E4E10048BF05 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				82F1966F1943E4E10048BF05 /* InfoPlist.strings in Resources */,
+				82F196771943E4E10048BF05 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		82F1967A1943E4E10048BF05 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				82F196881943E4E20048BF05 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		82F1965F1943E4E10048BF05 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				82661EF9194BEC250020C876 /* SJHLocationManager.m in Sources */,
+				82661EFA194BEC250020C876 /* SJHRegionWrapper.m in Sources */,
+				82F196751943E4E10048BF05 /* SJHAppDelegate.m in Sources */,
+				82F196711943E4E10048BF05 /* main.m in Sources */,
+				82661EF4194BB9A80020C876 /* SJHLocationHandler.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		82F196781943E4E10048BF05 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				82F1968A1943E4E20048BF05 /* SJHLocationManagerTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		82F196821943E4E20048BF05 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 82F196621943E4E10048BF05 /* SJHLocationManager */;
+			targetProxy = 82F196811943E4E20048BF05 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		82F1966D1943E4E10048BF05 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				82F1966E1943E4E10048BF05 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		82F196861943E4E20048BF05 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				82F196871943E4E20048BF05 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		82F196521943DFC10048BF05 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		82F196531943DFC10048BF05 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		82F1968C1943E4E20048BF05 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SJHLocationManager/SJHLocationManager-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "SJHLocationManager/SJHLocationManager-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		82F1968D1943E4E20048BF05 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SJHLocationManager/SJHLocationManager-Prefix.pch";
+				INFOPLIST_FILE = "SJHLocationManager/SJHLocationManager-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		82F1968F1943E4E20048BF05 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SJHLocationManager.app/SJHLocationManager";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SJHLocationManager/SJHLocationManager-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "SJHLocationManagerTests/SJHLocationManagerTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		82F196901943E4E20048BF05 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SJHLocationManager.app/SJHLocationManager";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SJHLocationManager/SJHLocationManager-Prefix.pch";
+				INFOPLIST_FILE = "SJHLocationManagerTests/SJHLocationManagerTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		82F196431943DFC10048BF05 /* Build configuration list for PBXProject "SJHLocationManager" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				82F196521943DFC10048BF05 /* Debug */,
+				82F196531943DFC10048BF05 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		82F1968B1943E4E20048BF05 /* Build configuration list for PBXNativeTarget "SJHLocationManager" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				82F1968C1943E4E20048BF05 /* Debug */,
+				82F1968D1943E4E20048BF05 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		82F1968E1943E4E20048BF05 /* Build configuration list for PBXNativeTarget "SJHLocationManagerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				82F1968F1943E4E20048BF05 /* Debug */,
+				82F196901943E4E20048BF05 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 82F196401943DFC10048BF05 /* Project object */;
+}
