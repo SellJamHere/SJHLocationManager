@@ -10,11 +10,26 @@
 
 #import "SJHRegionWrapper.h"
 
-NSString * const kLocationManagerDidUpdateLocation = @"LocationManagerDidUpdateLocation";
+//Responding to Location Events
+NSString * const kLocationManagerDidUpdateLocations = @"LocationManagerDidUpdateLocation";
 NSString * const kLocationManagerDidFailWithError = @"LocationManagerDidFailWithError";
+NSString * const kLocationManagerDidFinishDeferredUpdatesWithError = @"LocationManagerDidFinishDeferredUpdatesWithError";
+//Pausing Location Updates
+NSString * const kLocationManagerDidPauseLocationUpdates = @"LocationManagerDidPauseLocationUpdates";
+NSString * const kLocationManagerDidResumeLocationUpdates = @"LocationManagerDidResumeLocationUpdates";
+//Responding to Heading Events
+NSString * const kLocationManagerDidUpdateHeading = @"LocationManagerDidUpdateHeading";
+//Responding to Region Events
 NSString * const kLocationManagerDidEnterRegion = @"LocationManagerDidEnterRegion";
 NSString * const kLocationManagerDidExitRegion = @"LocationManagerDidExitRegion";
+NSString * const kLocationManagerDidDetermineStateForRegion = @"LocationManagerDidDetermineStateForRegion";
 NSString * const kLocationManagerMonitoringDidFailForRegion = @"LocationManagerMonitoringDidFailForRegion";
+NSString * const kLocationManagerDidStartMonitoringForRegion = @"LocationManagerDidStartMonitoringForRegion";
+//Responding to Ranging Events
+NSString * const kLocationManagerDidRangeBeaconsInRegion = @"LocationManagerDidRangeBeaconsInRegion";
+NSString * const kLocationManagerRangingBeaconsDidFailForRegion = @"LocationManagerRangingBeaconsDidFailForRegion";
+//Responding to Authorization Changes
+NSString * const kLocationManagerDidChangeAuthorizationStatus = @"LocationManagerDidChangeAuthorizationStatus";
 
 const CLLocationAccuracy kDefaultLocationAccuracy = 50.0;
 const NSTimeInterval kLocationTimerIntervalDefault = 300.0;
@@ -36,6 +51,7 @@ const NSTimeInterval kLocationTimerIntervalDefault = 300.0;
 @property (strong, nonatomic) NSMutableSet *regionSet;
 @property (strong, nonatomic) NSTimer *regionTimer;
 @property NSTimeInterval regionTimerInterval;
+@property BOOL shouldCalibrate;
 
 @end
 
@@ -55,6 +71,7 @@ const NSTimeInterval kLocationTimerIntervalDefault = 300.0;
     if (self) {
         self.delegate = self;
         self.isUpdatingLocation = NO;
+        _shouldCalibrate = NO;
         
         self.regionSet = [[NSMutableSet alloc] init];
         self.regionTimerInterval = kLocationTimerIntervalDefault;
@@ -78,6 +95,11 @@ const NSTimeInterval kLocationTimerIntervalDefault = 300.0;
         [self stopRegionTimer];
         [self startRegionTimer];
     }
+}
+
+#pragma mark - Calibration
+- (void)setCalibrationFlag:(BOOL)calibrationFlag {
+    _shouldCalibrate = calibrationFlag;
 }
 
 #pragma mark - Location Methods
@@ -181,6 +203,7 @@ const NSTimeInterval kLocationTimerIntervalDefault = 300.0;
 }
 
 #pragma mark - location delegate methods
+//Responding to Location Events
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     CLLocation *location = [locations lastObject];
     
@@ -188,7 +211,7 @@ const NSTimeInterval kLocationTimerIntervalDefault = 300.0;
         [self stopUpdatingLocation];
         NSLog(@"Location updated: %@", location);
         if (self.isUpdatingLocation) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:kLocationManagerDidUpdateLocation object:self userInfo:@{@"location": location}];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kLocationManagerDidUpdateLocations object:self userInfo:@{@"location": location}];
         }
         if ([self.regionSet count] > 0) {
             [self sendRegionNotifications];
@@ -201,6 +224,34 @@ const NSTimeInterval kLocationTimerIntervalDefault = 300.0;
     [[NSNotificationCenter defaultCenter] postNotificationName:kLocationManagerDidFailWithError object:self userInfo:@{@"error": error}];
 }
 
+- (void)locationManager:(CLLocationManager *)manager didFinishDeferredUpdatesWithError:(NSError *)error {
+    NSLog(@"Location manager did finish deferred updates with error: %@", [error localizedDescription]);
+    [[NSNotificationCenter defaultCenter] postNotificationName:kLocationManagerDidFinishDeferredUpdatesWithError object:self userInfo:@{@"error": error}];
+}
+
+//Pausing Location Updates
+- (void)locationManagerDidPauseLocationUpdates:(CLLocationManager *)manager {
+    NSLog(@"Location manager did pause location updates");
+    [[NSNotificationCenter defaultCenter] postNotificationName:kLocationManagerDidPauseLocationUpdates object:self userInfo:nil];
+}
+
+- (void)locationManagerDidResumeLocationUpdates:(CLLocationManager *)manager {
+    NSLog(@"Location manager did resume location updates");
+    [[NSNotificationCenter defaultCenter] postNotificationName:kLocationManagerDidResumeLocationUpdates object:self userInfo:nil];
+}
+
+//Responding to Heading Events
+- (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading {
+    NSLog(@"Location manager did update heading: %@", newHeading);
+    [[NSNotificationCenter defaultCenter] postNotificationName:kLocationManagerDidUpdateHeading object:self userInfo:@{@"heading": newHeading}];
+}
+
+- (BOOL)locationManagerShouldDisplayHeadingCalibration:(CLLocationManager *)manager {
+    NSLog(@"Location manager should display heading calibration. Should Calibrate: %@", (_shouldCalibrate ? @"YES" : @"NO"));
+    return _shouldCalibrate;
+}
+
+//Responding to Region Events
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region {
     NSLog(@"Entered region: %@", region);
     [[NSNotificationCenter defaultCenter] postNotificationName:kLocationManagerDidEnterRegion object:self userInfo:@{@"region": region}];
@@ -213,9 +264,36 @@ const NSTimeInterval kLocationTimerIntervalDefault = 300.0;
     [super stopUpdatingLocation];
 }
 
+- (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region {
+    NSLog(@"Did determine state: %@ for region: %@", [NSNumber numberWithInteger:state], region);
+    [[NSNotificationCenter defaultCenter] postNotificationName:kLocationManagerDidDetermineStateForRegion object:self userInfo:@{@"state": [NSNumber numberWithInteger:state], @"region": region}];
+}
+
 - (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error {
     NSLog(@"Monitoring did fail for region: %@, with error: %@", region, error);
     [[NSNotificationCenter defaultCenter] postNotificationName:kLocationManagerMonitoringDidFailForRegion object:self userInfo:@{@"region": region, @"error": error}];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region {
+    NSLog(@"Location manager did start monitoring for region: %@", region);
+    [[NSNotificationCenter defaultCenter] postNotificationName:kLocationManagerDidStartMonitoringForRegion object:self userInfo:@{@"region": region}];
+}
+
+//Responding to Ranging Events
+- (void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region {
+    NSLog(@"Location manager did range beacons: %@ in region: %@", beacons, region);
+    [[NSNotificationCenter defaultCenter] postNotificationName:kLocationManagerDidRangeBeaconsInRegion object:self userInfo:@{@"beacons": beacons, @"region": region}];
+}
+
+- (void)locationManager:(CLLocationManager *)manager rangingBeaconsDidFailForRegion:(CLBeaconRegion *)region withError:(NSError *)error {
+    NSLog(@"Location manager ranging beacons did fail for region: %@ with error: %@", region, [error localizedDescription]);
+    [[NSNotificationCenter defaultCenter] postNotificationName:kLocationManagerRangingBeaconsDidFailForRegion object:self userInfo:@{@"region": region, @"error": error}];
+}
+
+//Responding to Authorization Changes
+- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
+    NSLog(@"Location manager did change authorization status: %@", [NSNumber numberWithInteger:status]);
+    [[NSNotificationCenter defaultCenter] postNotificationName:kLocationManagerDidChangeAuthorizationStatus object:self userInfo:@{@"status": [NSNumber numberWithInteger:status]}];
 }
 
 @end

@@ -25,7 +25,7 @@
     if (self) {
         SJHLocationManager *locationManager = [SJHLocationManager sharedInstance];
         
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didUpdateLocation:) name:kLocationManagerDidUpdateLocation object:locationManager];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didUpdateLocation:) name:kLocationManagerDidUpdateLocations object:locationManager];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFailLocationUpdateWithError:) name:kLocationManagerDidFailWithError object:locationManager];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didEnterRegion:) name:kLocationManagerDidEnterRegion object:locationManager];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didExitRegion:) name:kLocationManagerDidExitRegion object:locationManager];
