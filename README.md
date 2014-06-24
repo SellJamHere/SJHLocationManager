@@ -7,6 +7,7 @@
 The SJHLocationManager class implements a singleton subclass of CLLocationManager that utilizes location data to handle entering and exiting regions. Standard region handling works best for large regions, but is somewhat lacking when regions are small.
 
 A few points to note in the [Apple Documentation](https://developer.apple.com/library/ios/documentation/userexperience/conceptual/LocationAwarenessPG/RegionMonitoring/RegionMonitoring.html).
+
 1. Monitoring of a region begins immediately after registration. However, do not expect to receive an event right away. Only boundary crossings can generate an event. Thus, if at registration time the user’s location is already inside the region, the location manager does not generate an event. Instead, you must wait for the user to cross the region boundary before an event is generated and sent to the delegate.
 2. Specifically, the user’s location must cross the region boundary, move away from the boundary by a minimum distance, and remain at that minimum distance for at least 20 seconds before the notifications are reported.
 3. You can assume that the minimum distance is approximately 200 meters.
