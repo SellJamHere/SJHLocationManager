@@ -1,21 +1,15 @@
-#import <Foundation/Foundation.h>
 
+#import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
-/***************************************************************************************
- *
- * 
- *
- * /////////////////////////////////////////////////////////////////////////////////////
- * Notifications are posted to [NSNotificationCenter defaultCenter] on location update
- *
- * They can be received with:
- * [[NSNotificationCenter defaultCenter] addObserver:self 
- *                                          selector:@selector(requestFinishedHandler:)
- *                                              name:kLocationManagerDidUpdateLocation
- *                                            object:nil];
- *
- ***************************************************************************************/
+/**
+ `SJHLocationManager` implements `CLLocationManagerDelegate` methods. If `SJHLocationManager.delegate` is set, its appropriate methods are called. Otherwise notifications are posted to `[NSNotificationCenter defaultCenter]` when delegate methods are called, using the appropriate notification name constant.
+ 
+ Notifications are received with:
+ 
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requestFinishedHandler:) name:kLocationManagerDidUpdateLocation object:nil];
+ 
+ */
 
 //Responding to Location Events
 extern NSString * const kLocationManagerDidUpdateLocations;
@@ -43,9 +37,25 @@ extern const NSTimeInterval kLocationTimerIntervalDefault;
 
 @interface SJHLocationManager : CLLocationManager
 
+/**
+ Boolean flag used for locationManagerShouldDisplayHeadingCalibration: delegate calls.
+ Defaults to NO.
+ */
+@property BOOL shouldDisplayHeadingCalibration;
+
+/// ----------------------
+/// @name Singleton Object
+/// ----------------------
+
+/**
+ Returns an `SJHLocationManager` singleton.
+ */
 + (instancetype)sharedInstance;
 
-- (void)setTimerInterval:(NSTimeInterval)interval;
-- (void)setCalibrationFlag:(BOOL)calibrationFlag;
+
+/**
+ Sets the interval at which location updates will be requested for region monitoring.
+ */
+- (void)setRegionTimerInterval:(NSTimeInterval)interval;
 
 @end

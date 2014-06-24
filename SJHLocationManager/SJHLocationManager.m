@@ -7,8 +7,9 @@
 //
 
 #import "SJHLocationManager.h"
-
 #import "SJHRegionWrapper.h"
+
+#define DELEGATE_DEBUG 0
 
 //Responding to Location Events
 NSString * const kLocationManagerDidUpdateLocations = @"LocationManagerDidUpdateLocation";
@@ -34,24 +35,15 @@ NSString * const kLocationManagerDidChangeAuthorizationStatus = @"LocationManage
 const CLLocationAccuracy kDefaultLocationAccuracy = 50.0;
 const NSTimeInterval kLocationTimerIntervalDefault = 300.0;
 
-/*
- * BOOL isUpdatingLocations
- * BOOL isMonitoringRegions
- *
- * Used to determine which delegate methods are called. Regions are checked by
- * updating location, but if no one asked for location to be updated, we shouldn't
- * send the updates to the update location delegate methods for notification.
- *
- */
-
-@interface SJHLocationManager () <CLLocationManagerDelegate>
+@interface SJHLocationManager () <CLLocationManagerDelegate> {
+    id<CLLocationManagerDelegate> _externalDelegate;
+    NSTimeInterval _regionTimerInterval;
+}
 
 @property (atomic) BOOL isUpdatingLocation;
 
 @property (strong, nonatomic) NSMutableSet *regionSet;
 @property (strong, nonatomic) NSTimer *regionTimer;
-@property NSTimeInterval regionTimerInterval;
-@property BOOL shouldCalibrate;
 
 @end
 
@@ -69,9 +61,9 @@ const NSTimeInterval kLocationTimerIntervalDefault = 300.0;
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.delegate = self;
+        [super setDelegate: self];
         self.isUpdatingLocation = NO;
-        _shouldCalibrate = NO;
+        self.shouldDisplayHeadingCalibration = NO;
         
         self.regionSet = [[NSMutableSet alloc] init];
         self.regionTimerInterval = kLocationTimerIntervalDefault;
@@ -79,9 +71,18 @@ const NSTimeInterval kLocationTimerIntervalDefault = 300.0;
     return self;
 }
 
+#pragma mark - Override delegate property methods
+- (void)setDelegate:(id<CLLocationManagerDelegate>)delegate {
+    _externalDelegate = delegate;
+}
+
+- (id<CLLocationManagerDelegate>)delegate {
+    return _externalDelegate;
+}
+
 #pragma mark - Timer Methods
 - (void)startRegionTimer {
-    self.regionTimer = [NSTimer scheduledTimerWithTimeInterval:self.regionTimerInterval target:self selector:@selector(startUpdatingLocation) userInfo:nil repeats:YES];
+    self.regionTimer = [NSTimer scheduledTimerWithTimeInterval:_regionTimerInterval target:self selector:@selector(startUpdatingLocation) userInfo:nil repeats:YES];
 }
 
 - (void)stopRegionTimer {
@@ -89,17 +90,12 @@ const NSTimeInterval kLocationTimerIntervalDefault = 300.0;
     self.regionTimer = nil;
 }
 
-- (void)setTimerInterval:(NSTimeInterval)interval {
-    self.regionTimerInterval = interval;
+- (void)setRegionTimerInterval:(NSTimeInterval)interval {
+    _regionTimerInterval = interval;
     if (self.regionTimer) {
         [self stopRegionTimer];
         [self startRegionTimer];
     }
-}
-
-#pragma mark - Calibration
-- (void)setCalibrationFlag:(BOOL)calibrationFlag {
-    _shouldCalibrate = calibrationFlag;
 }
 
 #pragma mark - Location Methods
@@ -133,9 +129,6 @@ const NSTimeInterval kLocationTimerIntervalDefault = 300.0;
     }
 }
 
-//kick off location monitoring every 5 minutes to get a location and
-//determine if the region is in bounds
-//set isMonitoringRegions to true
 - (void)startMonitoringForRegion:(CLRegion *)region {
     if ([self isAuthorizedForLocationServices] && [CLLocationManager isMonitoringAvailableForClass:[CLCircularRegion class]]) {
         if ([region isKindOfClass:[CLCircularRegion class]]) {
@@ -143,10 +136,10 @@ const NSTimeInterval kLocationTimerIntervalDefault = 300.0;
             SSRegionWrapper *regionWrapper = [[SSRegionWrapper alloc] initWithRegion:region];
             regionWrapper.isInsideRegion = [(CLCircularRegion *)region containsCoordinate:self.location.coordinate];
             if (regionWrapper.isInsideRegion) {
-                [self locationManager:self didEnterRegion:regionWrapper.region];
+                [self.delegate locationManager:self didEnterRegion:regionWrapper.region];
             }
             else {
-                [self locationManager:self didExitRegion:regionWrapper.region];
+                [self.delegate locationManager:self didExitRegion:regionWrapper.region];
             }
             [self.regionSet addObject:regionWrapper];
             
@@ -160,7 +153,6 @@ const NSTimeInterval kLocationTimerIntervalDefault = 300.0;
     }
 }
 
-//set isMonitoringRegions to false
 - (void)stopMonitoringForRegion:(CLRegion *)region {
     if ([self isAuthorizedForLocationServices]) {
         //remove region from self.regionSet
@@ -184,17 +176,19 @@ const NSTimeInterval kLocationTimerIntervalDefault = 300.0;
 - (void)sendRegionNotifications {
     for (SSRegionWrapper *wrapper in self.regionSet) {
         if ([wrapper.region isKindOfClass:[CLCircularRegion class]]) {
-//            NSLog(@"\nRegion Center: <%f, %f>, Radius: %f\nLocation: <%f, %f>\nRegion contains location: %@\n\n\n\n", [(CLCircularRegion *)[wrapper region] center].latitude, [(CLCircularRegion *)[wrapper region] center].longitude, [(CLCircularRegion *)[wrapper region] radius], self.location.coordinate.latitude, self.location.coordinate.longitude, ([(CLCircularRegion *)[wrapper region] containsCoordinate:self.location.coordinate] ? @"YES" : @"NO"));
+#if DELEGATE_DEBUG
+    NSLog(@"\nRegion Center: <%f, %f>, Radius: %f\nLocation: <%f, %f>\nRegion contains location: %@\n\n\n\n", [(CLCircularRegion *)[wrapper region] center].latitude, [(CLCircularRegion *)[wrapper region] center].longitude, [(CLCircularRegion *)[wrapper region] radius], self.location.coordinate.latitude, self.location.coordinate.longitude, ([(CLCircularRegion *)[wrapper region] containsCoordinate:self.location.coordinate] ? @"YES" : @"NO"));
+#endif
             if ([(CLCircularRegion *)wrapper.region containsCoordinate:self.location.coordinate]) {
                 if (!wrapper.isInsideRegion) {
                     wrapper.isInsideRegion = YES;
-                    [self locationManager:self didEnterRegion:wrapper.region];
+                    [self.delegate locationManager:self didEnterRegion:wrapper.region];
                 }
             }
             else {
                 if (wrapper.isInsideRegion) {
                     wrapper.isInsideRegion = NO;
-                    [self locationManager:self didExitRegion:wrapper.region];
+                    [self.delegate locationManager:self didExitRegion:wrapper.region];
                 }
             }
         }
@@ -209,9 +203,16 @@ const NSTimeInterval kLocationTimerIntervalDefault = 300.0;
     
     if ([self shouldstartLocationMonitoring] && [location horizontalAccuracy] <= [self desiredAccuracy]) {
         [self stopUpdatingLocation];
-        NSLog(@"Location updated: %@", location);
+#if DELEGATE_DEBUG
+    NSLog(@"Location updated: %@", location);
+#endif
         if (self.isUpdatingLocation) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:kLocationManagerDidUpdateLocations object:self userInfo:@{@"location": location}];
+            if (_externalDelegate != nil) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:kLocationManagerDidUpdateLocations object:self userInfo:@{@"location": location}];
+            }
+            else {
+                [_externalDelegate locationManager:manager didUpdateLocations:locations];
+            }
         }
         if ([self.regionSet count] > 0) {
             [self sendRegionNotifications];
@@ -220,80 +221,178 @@ const NSTimeInterval kLocationTimerIntervalDefault = 300.0;
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
+#if DELEGATE_DEBUG
     NSLog(@"Location manager failed with error: %@", [error localizedDescription]);
-    [[NSNotificationCenter defaultCenter] postNotificationName:kLocationManagerDidFailWithError object:self userInfo:@{@"error": error}];
+#endif
+    if (_externalDelegate == nil) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kLocationManagerDidFailWithError object:self userInfo:@{@"error": error}];
+    }
+    else {
+        [_externalDelegate locationManager:manager didFailWithError:error];
+    }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFinishDeferredUpdatesWithError:(NSError *)error {
+#if DELEGATE_DEBUG
     NSLog(@"Location manager did finish deferred updates with error: %@", [error localizedDescription]);
-    [[NSNotificationCenter defaultCenter] postNotificationName:kLocationManagerDidFinishDeferredUpdatesWithError object:self userInfo:@{@"error": error}];
+#endif
+    if (_externalDelegate == nil) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kLocationManagerDidFinishDeferredUpdatesWithError object:self userInfo:@{@"error": error}];
+    }
+    else {
+        [_externalDelegate locationManager:manager didFinishDeferredUpdatesWithError:error];
+    }
 }
 
 //Pausing Location Updates
 - (void)locationManagerDidPauseLocationUpdates:(CLLocationManager *)manager {
+#if DELEGATE_DEBUG
     NSLog(@"Location manager did pause location updates");
-    [[NSNotificationCenter defaultCenter] postNotificationName:kLocationManagerDidPauseLocationUpdates object:self userInfo:nil];
+#endif
+    if (_externalDelegate == nil) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kLocationManagerDidPauseLocationUpdates object:self userInfo:nil];
+    }
+    else {
+        [_externalDelegate locationManagerDidPauseLocationUpdates:manager];
+    }
 }
 
 - (void)locationManagerDidResumeLocationUpdates:(CLLocationManager *)manager {
+#if DELEGATE_DEBUG
     NSLog(@"Location manager did resume location updates");
-    [[NSNotificationCenter defaultCenter] postNotificationName:kLocationManagerDidResumeLocationUpdates object:self userInfo:nil];
+#endif
+    if (_externalDelegate == nil) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kLocationManagerDidResumeLocationUpdates object:self userInfo:nil];
+    }
+    else {
+        [_externalDelegate locationManagerDidResumeLocationUpdates:manager];
+    }
 }
 
 //Responding to Heading Events
 - (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading {
+#if DELEGATE_DEBUG
     NSLog(@"Location manager did update heading: %@", newHeading);
-    [[NSNotificationCenter defaultCenter] postNotificationName:kLocationManagerDidUpdateHeading object:self userInfo:@{@"heading": newHeading}];
+#endif
+    if (_externalDelegate == nil) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kLocationManagerDidUpdateHeading object:self userInfo:@{@"heading": newHeading}];
+    }
+    else {
+        [_externalDelegate locationManager:manager didUpdateHeading:newHeading];
+    }
 }
 
 - (BOOL)locationManagerShouldDisplayHeadingCalibration:(CLLocationManager *)manager {
-    NSLog(@"Location manager should display heading calibration. Should Calibrate: %@", (_shouldCalibrate ? @"YES" : @"NO"));
-    return _shouldCalibrate;
+#if DELEGATE_DEBUG
+    NSLog(@"Location manager should display heading calibration. Should Calibrate: %@", (self.shouldDisplayHeadingCalibration ? @"YES" : @"NO"));
+#endif
+    if (_externalDelegate == nil) {
+        return self.shouldDisplayHeadingCalibration;
+    }
+    else {
+        return [_externalDelegate locationManagerShouldDisplayHeadingCalibration:manager];
+    }
 }
 
 //Responding to Region Events
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region {
+#if DELEGATE_DEBUG
     NSLog(@"Entered region: %@", region);
-    [[NSNotificationCenter defaultCenter] postNotificationName:kLocationManagerDidEnterRegion object:self userInfo:@{@"region": region}];
+#endif
+    if (_externalDelegate == nil) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kLocationManagerDidEnterRegion object:self userInfo:@{@"region": region}];
+    }
+    else {
+        [_externalDelegate locationManager:manager didEnterRegion:region];
+    }
     [super stopUpdatingLocation];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region {
+#if DELEGATE_DEBUG
     NSLog(@"Exited region: %@", region);
-    [[NSNotificationCenter defaultCenter] postNotificationName:kLocationManagerDidExitRegion object:self userInfo:@{@"region": region}];
+#endif
+    if (_externalDelegate == nil) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kLocationManagerDidExitRegion object:self userInfo:@{@"region": region}];
+    }
+    else {
+        [_externalDelegate locationManager:manager didExitRegion:region];
+    }
     [super stopUpdatingLocation];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region {
+#if DELEGATE_DEBUG
     NSLog(@"Did determine state: %@ for region: %@", [NSNumber numberWithInteger:state], region);
-    [[NSNotificationCenter defaultCenter] postNotificationName:kLocationManagerDidDetermineStateForRegion object:self userInfo:@{@"state": [NSNumber numberWithInteger:state], @"region": region}];
+#endif
+    if (_externalDelegate == nil) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kLocationManagerDidDetermineStateForRegion object:self userInfo:@{@"state": [NSNumber numberWithInteger:state], @"region": region}];
+    }
+    else {
+        [_externalDelegate locationManager:manager didExitRegion:region];
+    }
 }
 
 - (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error {
+#if DELEGATE_DEBUG
     NSLog(@"Monitoring did fail for region: %@, with error: %@", region, error);
-    [[NSNotificationCenter defaultCenter] postNotificationName:kLocationManagerMonitoringDidFailForRegion object:self userInfo:@{@"region": region, @"error": error}];
+#endif
+    if (_externalDelegate == nil) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kLocationManagerMonitoringDidFailForRegion object:self userInfo:@{@"region": region, @"error": error}];
+    }
+    else {
+        [_externalDelegate locationManager:manager monitoringDidFailForRegion:region withError:error];
+    }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region {
+#if DELEGATE_DEBUG
     NSLog(@"Location manager did start monitoring for region: %@", region);
-    [[NSNotificationCenter defaultCenter] postNotificationName:kLocationManagerDidStartMonitoringForRegion object:self userInfo:@{@"region": region}];
+#endif
+    if (_externalDelegate == nil) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kLocationManagerDidStartMonitoringForRegion object:self userInfo:@{@"region": region}];
+    }
+    else {
+        [_externalDelegate locationManager:manager didStartMonitoringForRegion:region];
+    }
 }
 
 //Responding to Ranging Events
 - (void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region {
+#if DELEGATE_DEBUG
     NSLog(@"Location manager did range beacons: %@ in region: %@", beacons, region);
-    [[NSNotificationCenter defaultCenter] postNotificationName:kLocationManagerDidRangeBeaconsInRegion object:self userInfo:@{@"beacons": beacons, @"region": region}];
+#endif
+    if (_externalDelegate == nil) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kLocationManagerDidRangeBeaconsInRegion object:self userInfo:@{@"beacons": beacons, @"region": region}];
+    }
+    else {
+        [_externalDelegate locationManager:manager didRangeBeacons:beacons inRegion:region];
+    }
 }
 
 - (void)locationManager:(CLLocationManager *)manager rangingBeaconsDidFailForRegion:(CLBeaconRegion *)region withError:(NSError *)error {
+#if DELEGATE_DEBUG
     NSLog(@"Location manager ranging beacons did fail for region: %@ with error: %@", region, [error localizedDescription]);
-    [[NSNotificationCenter defaultCenter] postNotificationName:kLocationManagerRangingBeaconsDidFailForRegion object:self userInfo:@{@"region": region, @"error": error}];
+#endif
+    if (_externalDelegate == nil) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kLocationManagerRangingBeaconsDidFailForRegion object:self userInfo:@{@"region": region, @"error": error}];
+    }
+    else {
+        [_externalDelegate locationManager:manager rangingBeaconsDidFailForRegion:region withError:error];
+    }
 }
 
 //Responding to Authorization Changes
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
+#if DELEGATE_DEBUG
     NSLog(@"Location manager did change authorization status: %@", [NSNumber numberWithInteger:status]);
-    [[NSNotificationCenter defaultCenter] postNotificationName:kLocationManagerDidChangeAuthorizationStatus object:self userInfo:@{@"status": [NSNumber numberWithInteger:status]}];
+#endif
+    if (_externalDelegate == nil) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kLocationManagerDidChangeAuthorizationStatus object:self userInfo:@{@"status": [NSNumber numberWithInteger:status]}];
+    }
+    else {
+        [_externalDelegate locationManager:manager didChangeAuthorizationStatus:status];
+    }
 }
 
 @end
