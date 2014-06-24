@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/selljamhere/sjhlocationmanager.png?label=ready&title=Ready)](https://waffle.io/selljamhere/sjhlocationmanager)
 # SJHLocationManager
 
 [![Version](https://img.shields.io/cocoapods/v/SJHLocationManager.svg?style=flat)](http://cocoadocs.org/docsets/SJHLocationManager)
